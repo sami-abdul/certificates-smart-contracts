@@ -14,29 +14,33 @@ contract CertificateController is Pausable {
         repository = new Repository();
     }
 
-    function isCertificateIssued(bytes32 _certId) public view returns(bool) {
+    function isCertificateIssued(bytes32 _certId) public view returns (bool) {
         return repository.isCertificateIssued(_certId);
     }
 
-    function isCertificateValid(bytes32 _certId) public view returns(bool) {
+    function isCertificateValid(bytes32 _certId) public view returns (bool) {
         return repository.isCertificateValid(_certId);
     }
 
-    function getCertificateById(bytes32 _certId) public view returns(bytes32, bytes32, bytes32, bytes32, uint256, bool) {
+    function getCertificateById(bytes32 _certId) public view returns (bytes32, bytes32, bytes32, bytes32, bytes32, uint256, bool) {
         return repository.getCertificateById(_certId);
     }
 
-    function getCertificateByStudentId(bytes32 _stdId) public view returns(bytes32[], bytes32[], bytes32[], bytes32[], uint256[]) {
+    function getCertificateByStudentId(bytes32 _stdId) public view returns (bytes32[], bytes32[], bytes32[], bytes32[], uint256[]) {
         return repository.getCertificatesByStudentId(_stdId);
     }
 
-    function getAllCertificates() public view returns(bytes32[], bytes32[], bytes32[], bytes32[], bytes32[], uint256[], bool[]) {
+    function getAllCertificates() public view returns (bytes32[], bytes32[], bytes32[], bytes32[], bytes32[], uint256[], bool[]) {
         return repository.getAllCertificates();
     }
 
     function issueCertificate(bytes32 _stdId, bytes32 _crsId, bytes32 _stdName, bytes32 _crsName, uint256 _date) public onlyOwner whenNotPaused {
         bytes32 certId = repository.addCertificate(_stdId, _crsId, _stdName, _crsName, _date);
         emit CertificateIssued(certId);
+    }
+
+    function setCertificateTxHash(bytes32 _certId, bytes32 _txHash) public onlyOwner whenNotPaused {
+        repository.setCertificateTxHash(_certId, _txHash);
     }
 
     function revokeCertificate(bytes32 _certId) public onlyOwner whenNotPaused {
