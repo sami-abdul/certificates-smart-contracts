@@ -35,7 +35,7 @@ contract Repository is Ownable {
     }
 
     function getCertificatesByStudentId(bytes32 _stdId) public view returns (bytes32[], bytes32[], bytes32[], bytes32[], uint256[]) {
-        bytes32[] certIds = stdIdToCertificateIds[_stdId];
+        bytes32[] storage certIds = stdIdToCertificateIds[_stdId];
 
         bytes32[] memory certificateIds_ = new bytes32[](certIds.length);
         bytes32[] memory courseIds = new bytes32[](certIds.length);
@@ -89,7 +89,7 @@ contract Repository is Ownable {
         return certId;
     }
 
-    function setCertificateTxHash(bytes32 _certId, bytes32 _txHash) public onlyOwner {
+    function addTxHash(byte32 _certId, bytes32 _txHash) public onlyOwner {
         idToCertificate[_certId].txHash = _txHash;
     }
 

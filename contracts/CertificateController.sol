@@ -9,6 +9,7 @@ contract CertificateController is Pausable {
     event CertificateIssued(bytes32 certificateId);
     event CertificateRevoked(bytes32 certificateId);
     event CertificateEnacted(bytes32 certificateId);
+    event TxHashAdded(bytes32 certificateId, bytes32 txHash);
 
     constructor() public {
         repository = new Repository();
@@ -41,6 +42,7 @@ contract CertificateController is Pausable {
 
     function setCertificateTxHash(bytes32 _certId, bytes32 _txHash) public onlyOwner whenNotPaused {
         repository.setCertificateTxHash(_certId, _txHash);
+        emit TxHashAdded(_certId, _txHash);
     }
 
     function revokeCertificate(bytes32 _certId) public onlyOwner whenNotPaused {
