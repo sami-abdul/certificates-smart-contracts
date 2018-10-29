@@ -80,9 +80,9 @@ contract Repository is Ownable {
     }
 
     function addCertificate(bytes32 _stdId, bytes32 _crsId, bytes32 _stdName, bytes32 _crsName, uint256 _date) public onlyOwner returns (bytes32) {
-        bytes32 certId = keccak256(_stdId, _crsId, _stdName, _crsName, _date);
+        bytes32 certId = keccak256(abi.encodePacked(_stdId, _crsId, _stdName, _crsName, _date));
 
-        idToCertificate[certId] = Certificate(certId, _stdId, _crsId, _stdName, _crsName, _date, false, '');
+        idToCertificate[certId] = Certificate(certId, _stdId, _crsId, _stdName, _crsName, _date, false, "");
         stdIdToCertificateIds[_stdId].push(certId);
         certificateIds.push(certId);
 
