@@ -41,7 +41,7 @@ contract CertificateController is Pausable {
     }
 
     function setCertificateTxHash(bytes32 _certId, bytes32 _txHash) public onlyOwner whenNotPaused {
-        repository.setCertificateTxHash(_certId, _txHash);
+        repository.addTxHash(_certId, _txHash);
         emit TxHashAdded(_certId, _txHash);
     }
 

@@ -89,7 +89,7 @@ contract Repository is Ownable {
         return certId;
     }
 
-    function addTxHash(byte32 _certId, bytes32 _txHash) public onlyOwner {
+    function addTxHash(bytes32 _certId, bytes32 _txHash) public onlyOwner {
         idToCertificate[_certId].txHash = _txHash;
     }
 
